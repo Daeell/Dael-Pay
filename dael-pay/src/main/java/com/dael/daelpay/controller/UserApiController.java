@@ -18,9 +18,9 @@ public class UserApiController {
         this.userService = userService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<Void> signUp(@RequestBody UserDto userDto) {
-        userService.singUp(userDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping
+    public String signUp(@RequestBody UserDto userDto) {
+        userService.signUp(userDto);
+        return "redirect:/login";
     }
 }
