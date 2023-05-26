@@ -1,7 +1,6 @@
 package com.dael.daelpay.domain;
 
-import com.dael.daelpay.dto.UserDto;
-import com.sun.istack.NotNull;
+import com.dael.daelpay.dto.UserFormDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +68,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public static User makeUser(UserDto userDto, PasswordEncoder passwordEncoder) {
-        return new User(userDto.getName(), userDto.getEmail(), passwordEncoder.encode(userDto.getPassword()));
+    public static User makeUser(UserFormDto userFormDto, PasswordEncoder passwordEncoder) {
+        return new User(userFormDto.getName(), userFormDto.getEmail(), passwordEncoder.encode(userFormDto.getPassword()));
     }
 }

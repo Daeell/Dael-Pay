@@ -1,7 +1,7 @@
 package com.dael.daelpay.service;
 
 import com.dael.daelpay.domain.User;
-import com.dael.daelpay.dto.UserDto;
+import com.dael.daelpay.dto.UserFormDto;
 import com.dael.daelpay.exception.UserAlreadyExistException;
 import com.dael.daelpay.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,12 +18,12 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @Transactional
-    public void signUp(UserDto userDto) {
-        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+    public void signUp(UserFormDto userFormDto) {
+        System.out.println("userService SignUp method called");
+        if (userRepository.findByEmail(userFormDto.getEmail()).isPresent()) {
             throw new UserAlreadyExistException("이미 존재하는 회원입니다");
         }
-        User user = User.makeUser(userDto, bCryptPasswordEncoder);
+        User user = User.makeUser(userFormDto, bCryptPasswordEncoder);
         userRepository.save(user);
     }
 }
