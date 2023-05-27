@@ -1,7 +1,7 @@
 package com.dael.daelpay.userservice;
 
 import com.dael.daelpay.domain.User;
-import com.dael.daelpay.dto.UserDto;
+import com.dael.daelpay.dto.UserFormDto;
 import com.dael.daelpay.exception.UserAlreadyExistException;
 import com.dael.daelpay.repository.UserRepository;
 import com.dael.daelpay.service.UserService;
@@ -26,28 +26,28 @@ public class UserSignUpTest {
 
     @Test
     public void signUp_success() {
-        UserDto userDto = new UserDto();
-        userDto.setName("TestUser");
-        userDto.setEmail("testUser@example.com");
-        userDto.setPassword("testPassword");
+        UserFormDto userFormDto = new UserFormDto();
+        userFormDto.setName("TestUser");
+        userFormDto.setEmail("testUser@example.com");
+        userFormDto.setPassword("testPassword");
 
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
-        userService.singUp(userDto);
+        userService.signUp(userFormDto);
 
         verify(userRepository, times(1)).save(any(User.class));
     }
 
     @Test
     public void signUp_failure_existingUser() {
-        UserDto userDto = new UserDto();
-        userDto.setName("TestUser");
-        userDto.setEmail("testUser@example.com");
-        userDto.setPassword("testPassword");
+        UserFormDto userFormDto = new UserFormDto();
+        userFormDto.setName("TestUser");
+        userFormDto.setEmail("testUser@example.com");
+        userFormDto.setPassword("testPassword");
 
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mock(User.class)));
 
-        assertThrows(UserAlreadyExistException.class, () -> userService.singUp(userDto));
+        assertThrows(UserAlreadyExistException.class, () -> userService.signUp(userFormDto));
         verify(userRepository, times(0)).save(any(User.class));
     }
 }

@@ -1,8 +1,8 @@
 package com.dael.daelpay.dto;
 
-public class UserDto {
-    private String name;
+public class UserFormDto {
     private String email;
+    private String name;
     private String password;
 
     public String getName() {
