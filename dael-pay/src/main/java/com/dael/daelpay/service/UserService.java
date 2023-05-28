@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -18,11 +19,14 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public void signUp(UserFormDto userFormDto) {
-        System.out.println("userService SignUp method called");
-        if (userRepository.findByEmail(userFormDto.getEmail()).isPresent()) {
-            throw new UserAlreadyExistException("이미 존재하는 회원입니다");
+    private void validateDuplicateUser(UserFormDto userFormDto) {
+        if (userRepository.findByEmail(userFormDto.getEmail()).isPresent()){
+            throw new UserAlreadyExistException("이미 가입한 회원입니다");
         }
+    }
+
+    public void signUp(UserFormDto userFormDto) {
+        validateDuplicateUser(userFormDto);
         User user = User.makeUser(userFormDto, bCryptPasswordEncoder);
         userRepository.save(user);
     }

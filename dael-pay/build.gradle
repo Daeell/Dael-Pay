@@ -19,9 +19,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
