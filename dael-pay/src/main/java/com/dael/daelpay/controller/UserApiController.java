@@ -49,8 +49,6 @@ public class UserApiController {
 
     @PostMapping("/logout")
     @Operation(summary = "로그아웃", description = "인증을 해제하고 로그아웃을 진행한다.")
-    public ResponseEntity<?> logout(){
-        SecurityContextHolder.clearContext();
-        return ResponseEntity.ok().build();
+    public void logout(){
     }
 }
