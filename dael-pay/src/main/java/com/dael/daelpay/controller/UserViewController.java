@@ -12,7 +12,7 @@ public class UserViewController {
     public String login() {
         return "login";
     }
-    @GetMapping("/signup")
+    @GetMapping("/user/new")
     public String signup(Model model) {
         model.addAttribute("userFormDto", new UserFormDto());
         System.out.println("signup get method called");
